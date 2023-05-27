@@ -21,12 +21,14 @@ if get_option('install')
     res_install_dir = (
         get_option('datadir') / ('oatpp-swagger-' + oatpp_module_version)
     )
-    flags += '-DOATPP_SWAGGER_RES_PATH=' + (res_install_dir / 'res')
+    flags += '-DOATPP_SWAGGER_RES_PATH="' + (res_install_dir / 'res') + '"'
 
     install_subdir('res', install_dir: res_install_dir)
 
 else
-    flags += '-DOATPP_SWAGGER_RES_PATH=' + meson.current_build_dir() / 'res'
+    flags += (
+        '-DOATPP_SWAGGER_RES_PATH="' + (meson.project_source_root() / 'res') + '"'
+    )
 
 endif
 
@@ -48,13 +50,12 @@ src_files = []
 inc_dirs = []
 
 
-deps += dependency('oatpp')
-
+deps += dependency('oatpp', version: '1.3.0', default_options: ['tests=false'])
 subdir('src')
 
 # TODO: install isn't well tought out atm
 lib_oatpp_swagger = library(
-    'oatpp',
+    'oatpp-swagger',
     src_files,
     dependencies: deps,
     include_directories: inc_dirs,

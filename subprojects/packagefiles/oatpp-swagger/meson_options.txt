@@ -10,10 +10,11 @@ option(
     value: true,
     description: 'Build tests for this module',
 )
+# this is set to false, in the cmake files this is set to true per default, but since this needs res/ files installed there, for everything to work, it has to be set manually, and the you have to install it, for it to work, since it expectecs the files to be there
 option(
     'install',
     type: 'boolean',
-    value: true,
+    value: false,
     description: 'Install module binaries',
 )
 option(
