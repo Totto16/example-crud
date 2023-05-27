@@ -15,15 +15,7 @@ project(
 deps = []
 deps += dependency('oatpp', version: '1.3.0', default_options: ['tests=false'])
 
-#TODO: make this compatible with the wraps
-
-#  -DOATPP_SWAGGER_RES_PATH="${oatpp-swagger_INCLUDE_DIRS}/../bin/oatpp-swagger/res"
-swagger_options = []
-deps += dependency(
-    'oatpp-swagger',
-    version: '1.3.0',
-    default_options: swagger_options,
-)
+deps += dependency('oatpp-swagger', version: '1.3.0')
 
 sqlite_options = [
     # '-DTESTDATABASE_FILE=' + meson.project_source_root() + '/test-db.sqlite',
