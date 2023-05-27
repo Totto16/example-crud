@@ -46,23 +46,13 @@ This project is using the following oatpp modules:
 
 ### Build and Run
 
-#### Using CMake
-
-##### Pre Requirements
-
-- `oatpp` 
-- `oatpp-swagger`
-- `oatpp-sqlite` with `-DOATPP_SQLITE_AMALGAMATION=ON` cmake flag.
-
-**Note:** You may run `utility/install-oatpp-modules.sh` script to install required oatpp modules.
-
-##### Build Project
+#### Using Meson
 
 ```
-$ mkdir build && cd build
-$ cmake ..
-$ make 
-$ ./crud-exe        # - run application.
+$ meson setup build
+$ meson compile -C build
+$ ./build/crud  # - run application.
+
 ```
 
 #### In Docker
@@ -92,3 +82,6 @@ $ docker run -p 8000:8000 -t example-crud
 |`GET`|http://localhost:8000/users/{userId} | Get User by ID |
 |`DELETE`|http://localhost:8000/users/{userId} | Delete User by ID |
 |`GET`|http://localhost:8000/users/offset/{offset}/limit/{limit} | Get All Users with Paging |
+
+
+https://github.com/oatpp/oatpp#examples
