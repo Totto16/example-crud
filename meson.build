@@ -14,8 +14,16 @@ project(
 
 deps = []
 deps += dependency('oatpp', version: '1.3.0', default_options: ['tests=false'])
-deps += dependency('oatpp-swagger', version: '1.3.0')
-deps += dependency('oatpp-sqlite', version: '1.3.0')
+deps += dependency(
+    'oatpp-swagger',
+    version: '1.3.0',
+    default_options: ['tests=false'],
+)
+deps += dependency(
+    'oatpp-sqlite',
+    version: '1.3.0',
+    default_options: ['tests=false'],
+)
 
 deps += dependency('threads')
 
@@ -66,6 +74,13 @@ if get_option('tests')
     test_deps = deps
     test_deps += dependency('oatpp-test', version: '1.3.0')
 
+    test_flags = flags
+    test_flags += [
+        '-DTESTDATABASE_FILE="' + (
+            meson.project_source_root() / 'test-db.sqlite'
+        ) + '"',
+    ]
+
     crud_test = executable(
         'crud_test',
         files(
@@ -79,6 +94,7 @@ if get_option('tests')
         include_directories: include_directories('test', 'src'),
         link_with: crud_lib,
         dependencies: test_deps,
+        cpp_args: test_flags,
         override_options: ['warning_level=1', 'werror=false'],
     )
     test('Crud Tests', crud_test)
