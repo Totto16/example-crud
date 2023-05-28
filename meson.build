@@ -14,23 +14,8 @@ project(
 
 deps = []
 deps += dependency('oatpp', version: '1.3.0', default_options: ['tests=false'])
-
 deps += dependency('oatpp-swagger', version: '1.3.0')
-
-sqlite_options = [
-    # '-DTESTDATABASE_FILE=' + meson.project_source_root() + '/test-db.sqlite',
-    # '-DDATABASE_FILE=' + meson.project_source_root() + '/db.sqlite',
-    # '-DDATABASE_MIGRATIONS=' + meson.project_source_root() + '/sql',
-    'testdatabase_file=' + meson.project_source_root() + '/test-db.sqlite',
-    'database_file=' + meson.project_source_root() + '/db.sqlite',
-    'database_migrations=' + meson.project_source_root() + '/sql',
-]
-
-deps += dependency(
-    'oatpp-sqlite',
-    version: '1.3.0',
-    default_options: sqlite_options,
-)
+deps += dependency('oatpp-sqlite', version: '1.3.0')
 
 deps += dependency('threads')
 
