@@ -19,6 +19,13 @@ deps += dependency('oatpp-sqlite', version: '1.3.0')
 
 deps += dependency('threads')
 
+
+flags = [
+    '-DDATABASE_FILE="' + (meson.project_source_root() / 'db.sqlite') + '"',
+    '-DDATABASE_MIGRATIONS="' + (meson.project_source_root() / 'sql') + '"',
+]
+
+
 crud_lib = library(
     'crud',
     files(
@@ -38,14 +45,17 @@ crud_lib = library(
     ),
     include_directories: include_directories('src'),
     dependencies: deps,
+    cpp_args: flags,
     override_options: ['warning_level=3', 'werror=false'],
 )
+
 
 executable(
     'crud',
     files('src/App.cpp'),
     include_directories: include_directories('src'),
     dependencies: deps,
+    cpp_args: flags,
     link_with: crud_lib,
     override_options: ['warning_level=3', 'werror=false'],
 )

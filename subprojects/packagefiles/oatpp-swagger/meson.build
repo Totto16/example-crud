@@ -15,22 +15,26 @@ oatpp_module_so_version = (
 )
 
 flags = []
-
+compile_args = []
 if get_option('install')
     # TODO this has to be different, dependeing on the folder, if it#s installed, set the path to the installed dir, otherwise to the current build dir!
     res_install_dir = (
         get_option('datadir') / ('oatpp-swagger-' + oatpp_module_version)
     )
-    flags += '-DOATPP_SWAGGER_RES_PATH="' + (res_install_dir / 'res') + '"'
+    compile_args += (
+        '-DOATPP_SWAGGER_RES_PATH="' + (res_install_dir / 'res') + '"'
+    )
 
     install_subdir('res', install_dir: res_install_dir)
 
 else
-    flags += (
+    compile_args += (
         '-DOATPP_SWAGGER_RES_PATH="' + (meson.project_source_root() / 'res') + '"'
     )
 
 endif
+
+flags += compile_args
 
 cpp = meson.get_compiler('cpp')
 is_msvc_or_similar = cpp.get_id() == 'msvc' or cpp.get_id() == 'clang-cl'
@@ -70,6 +74,7 @@ oatpp_swagger_dep = declare_dependency(
     include_directories: inc_dirs,
     link_with: lib_oatpp_swagger,
     version: oatpp_module_version,
+    compile_args: compile_args,
 )
 
 
