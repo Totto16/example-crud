@@ -1,26 +1,33 @@
-src_files += files(
-    'mapping/Deserializer.cpp',
+header_files = files(
     'mapping/Deserializer.hpp',
-    'mapping/ResultMapper.cpp',
     'mapping/ResultMapper.hpp',
-    'mapping/Serializer.cpp',
     'mapping/Serializer.hpp',
-    'mapping/type/Blob.cpp',
     'mapping/type/Blob.hpp',
-    'ql_template/Parser.cpp',
     'ql_template/Parser.hpp',
-    'ql_template/TemplateValueProvider.cpp',
     'ql_template/TemplateValueProvider.hpp',
-    'Connection.cpp',
     'Connection.hpp',
-    'ConnectionProvider.cpp',
     'ConnectionProvider.hpp',
-    'Executor.cpp',
     'Executor.hpp',
-    'QueryResult.cpp',
     'QueryResult.hpp',
     'Types.hpp',
-    'Utils.cpp',
     'Utils.hpp',
     'orm.hpp',
 )
+
+src_files += header_files
+
+src_files += files(
+    'mapping/Deserializer.cpp',
+    'mapping/ResultMapper.cpp',
+    'mapping/Serializer.cpp',
+    'mapping/type/Blob.cpp',
+    'ql_template/Parser.cpp',
+    'ql_template/TemplateValueProvider.cpp',
+    'Connection.cpp',
+    'ConnectionProvider.cpp',
+    'Executor.cpp',
+    'QueryResult.cpp',
+    'Utils.cpp',
+)
+
+install_headers(header_files, subdir: 'oatpp-sqlite')
